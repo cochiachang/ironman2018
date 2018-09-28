@@ -1,0 +1,22 @@
+{
+  "name": "lianliankan",
+  "version": "0.0.1",
+  "scripts": {
+    "run": "gulp default"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@types/angular": "^1.6.50",
+    "@types/jquery": "^3.3.6"
+  },
+  "devDependencies": {
+    "@types/pixi.js": "^4.8.0",
+    "browser-sync": "^2.24.7",
+    "browserify": "^16.2.2",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^5.0.0-alpha.3",
+    "tsify": "^4.0.0",
+    "typescript": "^3.0.3",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}

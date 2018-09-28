@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+    .red {
+      background: red;
+    }
+  </style>
+  <script src="angular.min.js"></script>
+  <script src="jquery-3.1.0.js"></script>
+  <script src="pixi.min.js"></script>
+  <script src="bundle.js"></script>
+</head>
+
+<body ng-app="LianLianKan">
+  <table border="1" width="200" ng-controller="myCtrl">
+    <tr ng-repeat="lines in boardContent track by $index">
+      <td ng-repeat="x in lines track by $index" ng-class="{'red':(select1.x==$parent.$index && select1.y==$index && selected)}"
+        ng-click="click($parent.$index,$index)">{{x}}</td>
+    </tr>
+  </table>
+</body>
+
+</html>
