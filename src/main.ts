@@ -3,40 +3,59 @@
 /// <reference path='../node_modules/@types/pixi.js/index.d.ts' />
 
 import Point = PIXI.Point;
+declare var angular;
 
-//產生盤面
-var app = angular.module('LianLianKan', []);
-app.controller('myCtrl', function ($scope) {
-    $scope.select1 = new Point(-1, -1);
-    $scope.select2 = new Point(-1, -1);
-    $scope.selected = false;
-    let msgArra = [];
-    $scope.message = msgArra;
-    let board = new Board();
-    $scope.boardContent = board.board;
-    $scope.click = function (x: number, y: number) {
-        if ($scope.selected) {
-            $scope.select2 = new Point(x, y);
-            if (board.hasSameValue($scope.select1, $scope.select2)) {
-
-                
-                if (! ($scope.select1.x == x && $scope.select1.y == y) ) {
-
-                    let path = new Path($scope.select1, $scope.select2, board);
-                    if(path.canLinkInLine()){
-                        board.clearPoint($scope.select1);
-                        board.clearPoint($scope.select2);
-                        msgArra.push(path);
+let app = angular.module('LianLianKan', []);
+//angular.element(document).ready(function () {
+    app.controller('myCtrl',  function () {
+        let vm = this;
+        vm.select1 = new Point(-1, -1);
+        vm.select2 = new Point(-1, -1);
+        vm.selected = false;
+        vm.reloadTimes = 0;
+        let msgArra = [];
+        vm.message = msgArra;
+        let board = new Board();
+        vm.boardContent = board.board;
+        vm.getTips = function (){
+            let path = board.getFirstExistPath();
+            if(path == null){
+                board.rearrangeBoard();
+            }else{
+                path.canLinkInLine();
+                alert("["+path.point1.x+","+path.point1.y+"] to ["+path.point2.x+","+path.point2.y+"]");
+            }
+        }
+        vm.click = function (x: number, y: number) {
+            if (vm.selected) {
+                vm.select2 = new Point(x, y);
+                if (board.hasSameValue(vm.select1, vm.select2)) {
+                    if (! (vm.select1.x == x && vm.select1.y == y) ) {
+                        let path = new Path(vm.select1, vm.select2, board);
+                        if(path.canLinkInLine()){
+                            board.clearPoint(vm.select1);
+                            board.clearPoint(vm.select2);
+                            msgArra.push(path);
+                            //判斷還有沒有路走
+                            if(board.gameRoundEnd()){
+                                alert("恭喜完成遊戲!");
+                                board = new Board();
+                                vm.boardContent = board.board;
+                            }else if(board.getFirstExistPath() == null){
+                                vm.reloadTimes++;
+                                board.rearrangeBoard();
+                            }
+                        }
                     }
                 }
+                vm.selected = false;
+            } else {
+                vm.select1 = new Point(x, y);
+                vm.selected = true;
             }
-            $scope.selected = false;
-        } else {
-            $scope.select1 = new Point(x, y);
-            $scope.selected = true;
-        }
-    };
-});
+        };
+    });
+//});
 
 class Path {
     public point1: Point;
@@ -156,11 +175,6 @@ class Path {
         
         return false;
     }
-
-    public hasPathAround(): boolean {
-
-        return true;
-    }
 }
 
 class Direction {
@@ -182,6 +196,101 @@ class Board {
         for (var i = 0;i<length;i++){
             this.board.push(data.slice(i*length, (i+1)*length))
         }
+    }
+
+    public gameRoundEnd():boolean{
+        for (var i =0;i<this.board.length;i++){
+            for (var j = 0; j<this.board[i].length;j++){
+                if(this.board[i][j] != null){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    //取得第一條搜尋到的已知存在路徑
+    public getFirstExistPath():Path{
+        var searchedValue = [];//用以紀錄已搜尋過符號
+        //由最左上開始做判斷
+        for (var i =0;i<this.board.length;i++){
+            for (var j = 0; j<this.board[i].length;j++){
+                let value = this.board[i][j];
+                //判斷盤面上現在是有符號的（null代表沒有符號）
+                //並且這個符號之前還沒有被搜尋過
+                if(value!= null && searchedValue.indexOf(value) == -1){
+                    searchedValue.push(value);
+                    let positionsArr = this.getPositionByValue(value);//取得盤面上所有這個符號的位置
+                    let permutationsArr = this.getPairNumPermutations(positionsArr.length);//取得可能存在的連線的點的排列組合
+                    //getPairNumPermutations回傳的格式是[[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]]，裡面數字為index
+                    //嘗試每一個可能的排列組合
+                    for(var k = 0;k<permutationsArr.length;k++){
+                        let v = permutationsArr[k];
+                        let path = new Path(positionsArr[v[0]], positionsArr[v[1]],this);
+                        if(path.canLinkInLine()){
+                            return path;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private getAllValueInBoard(){
+        let values = [];
+        for (var i =0;i<this.board.length;i++){
+            for (var j = 0; j<this.board[i].length;j++){
+                if(this.board[i][j] != null){
+                    values.push(this.board[i][j]);
+                }
+            }
+        }
+        return values;
+    }
+
+    public rearrangeBoard(){
+        let values = this.getAllValueInBoard().sort((a, b) => (Math.random() > .5) ? 1 : 0);
+        for (var i =0;i<this.board.length;i++){
+            for (var j = 0; j<this.board[i].length;j++){
+                if(this.board[i][j] != null){
+                    this.board[i][j] = values.pop();
+                }
+            }
+        }
+    }
+
+    private pairNumPermutations = {};
+    /**
+     * 取得輸入的index中，2個2個一組的所有可能排列組合
+     * 回傳的格式是[[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]]
+     */
+    public getPairNumPermutations(num:number){
+        if(this.pairNumPermutations[num] != null){
+            return this.pairNumPermutations[num];
+        }
+        let data = [];
+        for(var i = 0; i <num;i++){
+            for(var j = 0; j <num;j++){
+                if(i != j && i <= j){
+                    data.push([i,j]);
+                }
+            }
+        }
+        this.pairNumPermutations[num] = data;
+        return data;
+    }
+    
+    public getPositionByValue(value:number):Array<Point>{
+        let arr = new Array<Point>();
+        for (var i =0;i<this.board.length;i++){
+            for (var j = 0; j<this.board[i].length;j++){
+                if (this.board[i][j] == value){
+                    arr.push(new Point(i, j));
+                } 
+            } 
+        } 
+        return arr;
     }
 
     public getNearByPointByDirection(point: Point, direction: string): Point {

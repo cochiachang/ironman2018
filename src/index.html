@@ -9,41 +9,63 @@
     .red {
       background: red;
     }
-    .number{
+
+    .number {
       font-weight: bold;
       color: blue;
     }
-    .point{
+
+    .point {
       font-size: xx-small;
       color: gray;
     }
-    table{margin: 10px;}
-    table td{min-width:40px;height:40px;text-align:center;}
-    #container{display: flex;}
+
+    table {
+      margin: 10px;
+    }
+
+    table td {
+      min-width: 40px;
+      height: 40px;
+      text-align: center;
+    }
+
+    #container {
+      display: flex;
+    }
   </style>
   <script src="angular.min.js"></script>
   <script src="jquery-3.1.0.js"></script>
   <script src="pixi.min.js"></script>
-  <script src="bundle.js"></script>
+  <script src="main.js"></script>
 </head>
 
 <body ng-app="LianLianKan">
-<div id="container" ng-controller="myCtrl">
-  <div id="board">
-    <table border="1" width="200">
-      <tr ng-repeat="lines in boardContent track by $index">
-        <td ng-repeat="x in lines track by $index" ng-class="{'red':(select1.x==$parent.$index && select1.y==$index && selected)}"
-            ng-click="click($parent.$index,$index)"><span class="point">({{$parent.$index}},{{$index}})</span><br/><span class="number">{{x}}</span> </td>
-      </tr>
-    </table>
+  <div id="container" ng-controller="myCtrl as vm">
+    <div id="btns">
+      <input type="button" ng-click="vm.getTips()" value="Tips"/>
+      重整次數: <input type="text" disabled="disabled" value="{{vm.reloadTimes}}"/>
+    </div>
+    <div id="board">
+      <table border="1" width="200">
+        <tr ng-repeat="lines in vm.boardContent track by $index">
+          <td ng-repeat="x in lines track by $index" ng-class="{'red':(vm.select1.x==$parent.$index && vm.select1.y==$index && vm.selected)}"
+            ng-click="vm.click($parent.$index,$index)">
+            <span class="point">({{$parent.$index}},{{$index}})</span>
+            <br/>
+            <span class="number">{{x}}</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="message">
+      <div class="item" ng-repeat="path in vm.message track by $index">
+        [{{$index}}] 選取({{path.point1.x}},{{path.point1.y}}),({{path.point2.x}},{{path.point2.y}}) , 經過路徑為
+        <span ng-repeat="point in path.path_Detail">( {{point.x}},{{point.y}} ), </span>.
+        <br/>
+      </div>
+    </div>
   </div>
-  <div id="message">
-    <div class="item" ng-repeat="path in message track by $index">
-      [{{$index}}] 選取({{path.point1.x}},{{path.point1.y}}),({{path.point2.x}},{{path.point2.y}}) , 
-      經過路徑為<span ng-repeat="point in path.path_Detail">( {{point.x}},{{point.y}} ), </span>.<br/>
-  </div>
-</div>
-  
 </body>
 
 </html>
