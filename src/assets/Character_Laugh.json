@@ -1,0 +1,99 @@
+﻿{"frames": {
+
+"0":
+{
+	"frame": {"x":0,"y":0,"w":109,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+},
+"1":
+{
+	"frame": {"x":109,"y":0,"w":109,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+},
+"2":
+{
+	"frame": {"x":0,"y":74,"w":110,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+},
+"3":
+{
+	"frame": {"x":110,"y":74,"w":109,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+},
+"4":
+{
+	"frame": {"x":0,"y":148,"w":109,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+},
+"5":
+{
+	"frame": {"x":109,"y":148,"w":108,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+},
+"6":
+{
+	"frame": {"x":0,"y":222,"w":109,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+},
+"7":
+{
+	"frame": {"x":109,"y":222,"w":109,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+},
+"8":
+{
+	"frame": {"x":0,"y":296,"w":110,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+},
+"9":
+{
+	"frame": {"x":110,"y":296,"w":109,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+},
+"10":
+{
+	"frame": {"x":0,"y":0,"w":109,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":110,"h":74},
+	"sourceSize": {"w":110,"h":74}
+}},
+"meta": {
+	"app": "Adobe Animate",
+	"version": "15.1.1.13",
+	"image": "Character_Laugh.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":512},
+	"scale": "1"
+}
+}

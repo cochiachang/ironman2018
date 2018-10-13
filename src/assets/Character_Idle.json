@@ -1,0 +1,99 @@
+﻿{"frames": {
+
+"0":
+{
+	"frame": {"x":0,"y":0,"w":72,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+},
+"1":
+{
+	"frame": {"x":72,"y":0,"w":72,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+},
+"2":
+{
+	"frame": {"x":144,"y":0,"w":72,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+},
+"3":
+{
+	"frame": {"x":0,"y":74,"w":72,"h":75},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+},
+"4":
+{
+	"frame": {"x":72,"y":74,"w":72,"h":75},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+},
+"5":
+{
+	"frame": {"x":144,"y":74,"w":72,"h":76},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+},
+"6":
+{
+	"frame": {"x":0,"y":150,"w":72,"h":75},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+},
+"7":
+{
+	"frame": {"x":72,"y":150,"w":72,"h":75},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+},
+"8":
+{
+	"frame": {"x":144,"y":150,"w":72,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+},
+"9":
+{
+	"frame": {"x":0,"y":225,"w":72,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+},
+"10":
+{
+	"frame": {"x":0,"y":0,"w":72,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":72,"h":76},
+	"sourceSize": {"w":72,"h":76}
+}},
+"meta": {
+	"app": "Adobe Animate",
+	"version": "15.1.1.13",
+	"image": "Character_Idle.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":512},
+	"scale": "1"
+}
+}
