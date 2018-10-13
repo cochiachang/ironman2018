@@ -1,6 +1,10 @@
+import EventEmitter = PIXI.utils.EventEmitter;
+import {CoreEvent} from "./core/Event";
 import Application = PIXI.Application;
 import {Loader} from "./core/Loader";
 import Resource = PIXI.loaders.Resource;
+
+export let eventEmitter:EventEmitter;
 export let application:Application;
 /**
  * 主要的 client application.
@@ -9,22 +13,24 @@ export let application:Application;
 export class Main {
 
     public initGame() {
-       //設定場景
-       let gameCanvasContext = (< HTMLCanvasElement >jQuery("#gameCanvas")[0]);
-       application = new PIXI.Application(960, 540, {backgroundColor : 0x000000, view: gameCanvasContext});
-       
-       //貼一張圖片
-       var bunny = PIXI.Sprite.fromImage('assets/bunny.png');
-       bunny.x = application.screen.width / 2;
-       bunny.y = application.screen.height / 2;
-       application.stage.addChild(bunny);
-            
-       //載入素材 
-       Loader.load();
+        //設定場景
+        let gameCanvasContext = (< HTMLCanvasElement >jQuery("#gameCanvas")[0]);
+        application = new PIXI.Application(860, 540, {backgroundColor : 0x6DF7F4, view: gameCanvasContext});
+        //設定共用的事件傳遞元件
+        eventEmitter = new EventEmitter();
+        eventEmitter.on(CoreEvent.AssetsLoadComplete,()=>{
+            //隱藏loading page
+            jQuery("#loadingPage").hide();
+            //加入背景
+            var background = PIXI.Sprite.from(Loader.resources["background"].texture);
+            application.stage.addChild(background);
+        });
+        //載入素材
+        Loader.load();
 
-       //設定遊戲大小隨視窗大小改變
-       this.onResize(); 
-       window.onresize = this.onResize; 
+        //設定遊戲大小隨視窗大小改變
+        this.onResize(); 
+        window.onresize = this.onResize; 
     }
 
     public onResize() { 

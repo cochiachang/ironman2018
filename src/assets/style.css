@@ -10,11 +10,13 @@ body{
     min-height: 100%;
     position:absolute;
     left:0px;
+    top: 0px;
     z-index:1;
     background-color: #000000;
     color: #fff;
     text-align: center;
     vertical-align: middle;
+    line-height: 100vh;
 }
 #loadingPercent{
     position:absolute;

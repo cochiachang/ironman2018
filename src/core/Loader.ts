@@ -1,4 +1,5 @@
 import { ResourcesList } from "./ResourcesList";
+import {eventEmitter} from "../Main";
 import {CoreEvent} from "./Event";
 import math = PIXI.core.math;
 
@@ -17,25 +18,23 @@ export class Loader{
             this.resources = resources;
         });
         //可取得下載進度
-        this.loader.onProgress.add((event) => {
-            console.log("onProgress: ",event);
+        this.loader.onProgress.add((e) => {
+            jQuery("#loadingPage").html("Loading..." + Math.floor(e.progress) + "%");
         });
         //載入檔案錯誤時
-        this.loader.onError.add((target, event, error) => {
-            this.failedFiles.push(error.name);
-            console.log("onError: ",error);
+        this.loader.onError.add((t, e, r) => {
+            this.failedFiles.push(r.name);
         });
         //每個檔案載入時都會呼叫
-        this.loader.onLoad.add((event, target) => {
-            this.completedFiles.push(target.name);
-            console.log("onLoad: ",target);
+        this.loader.onLoad.add((e, t) => {
+            this.completedFiles.push(t.name);
         });
         //全部下載完成後
         this.loader.onComplete.add(() => {
             if (this.failedFiles.length == 0){
-                console.log("all file completed");
+                eventEmitter.emit(CoreEvent.AssetsLoadComplete);
             } else{
-                console.log("Loading...failed: could not load "+ this.failedFiles);
+                jQuery("#loadingPage").html("Loading...failed: could not load "+ this.failedFiles);
             }
         });
     }
