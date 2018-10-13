@@ -1,6 +1,7 @@
 import {ResourcesList} from "./ResourcesList";
 
 export class SoundMgr {
+    static isMute: boolean = false;
     private static soundList:Array<SoundInfo> = new Array<SoundInfo>();
     public static load(){
         ResourcesList.sound.forEach(element => {
@@ -15,6 +16,16 @@ export class SoundMgr {
                 element.sound.play();
             } 
         });
+    }
+    public static mute(value:boolean):void {
+        this.isMute = value;
+        if (this.isMute) {
+            //禁聲
+            Howler.mute(true);
+        } else {
+            //出聲
+            Howler.mute(false);
+        }
     }
 }
 class SoundInfo{
