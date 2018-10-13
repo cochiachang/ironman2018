@@ -17,4 +17,11 @@ export class ResourcesList{
         new Resources('Character_Laugh','assets/Character_Laugh.json'),
         new Resources('Icon','assets/Icon.json')
     ];
+    public static sound:Array<Resources> = [
+        new Resources('Sound_bg','assets/bg.mp3'),
+        new Resources('Sound_level_pass','assets/level_pass.mp3'),
+        new Resources('Sound_select_1','assets/select_1.mp3'),
+        new Resources('Sound_select_crrect','assets/select_crrect.mp3'),
+        new Resources('Sound_select_error','assets/select_error.mp3')
+    ];
 }

@@ -6,11 +6,13 @@
   },
   "license": "ISC",
   "dependencies": {
+    "howler": "^2.0.15",
     "jquery": "^3.3.1",
     "pixi.js": "^4.8.2",
     "systemjs": "^0.21.4"
   },
   "devDependencies": {
+    "@types/howler": "^2.0.5",
     "@types/jquery": "^3.3.9",
     "@types/pixi.js": "^4.8.0",
     "@types/systemjs": "^0.20.6",

@@ -25,7 +25,8 @@ gulp.task('libs', () => {
             'node_modules/systemjs/dist/system.js',
             'node_modules/systemjs/dist/system.js.map',
             'node_modules/pixi.js/dist/pixi.min.js',
-            'node_modules/pixi.js/dist/pixi.min.js.map'
+            'node_modules/pixi.js/dist/pixi.min.js.map',
+            'node_modules/howler/dist/howler.core.min.js'
         ])
         .pipe(gulp.dest("build/lib"));
 });
@@ -47,6 +48,9 @@ gulp.task("build-web", function () {
             }
         }
     );
+});
+
+gulp.task("default", ['launch-web'], function () {
 });
 
 gulp.task('launch-web', ['build-web'], function () {

@@ -3,6 +3,7 @@ import {CoreEvent} from "./core/Event";
 import Application = PIXI.Application;
 import {Loader} from "./core/Loader";
 import Resource = PIXI.loaders.Resource;
+import { SoundMgr } from "./core/SoundMgr";
 
 export let eventEmitter:EventEmitter;
 export let application:Application;
@@ -18,9 +19,12 @@ export class Main {
         application = new PIXI.Application(860, 540, {backgroundColor : 0x6DF7F4, view: gameCanvasContext});
         //設定共用的事件傳遞元件
         eventEmitter = new EventEmitter();
+        SoundMgr.load();
         eventEmitter.on(CoreEvent.AssetsLoadComplete,()=>{
             //隱藏loading page
             jQuery("#loadingPage").hide();
+            //播放背景音樂
+            SoundMgr.play('Sound_bg',true);
             //加入背景
             var background = PIXI.Sprite.from(Loader.resources["background"].texture);
             application.stage.addChild(background);
