@@ -1,5 +1,6 @@
 import Application = PIXI.Application;
-
+import {Loader} from "./core/Loader";
+import Resource = PIXI.loaders.Resource;
 export let application:Application;
 /**
  * 主要的 client application.
@@ -17,7 +18,10 @@ export class Main {
        bunny.x = application.screen.width / 2;
        bunny.y = application.screen.height / 2;
        application.stage.addChild(bunny);
-       
+            
+       //載入素材 
+       Loader.load();
+
        //設定遊戲大小隨視窗大小改變
        this.onResize(); 
        window.onresize = this.onResize; 
