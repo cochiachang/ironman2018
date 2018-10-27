@@ -4,6 +4,8 @@ import {Loader} from "../core/Loader";
 import Point = PIXI.Point;
 import {Path} from "../core/Path";
 import {SoundMgr} from "../core/SoundMgr";
+import { eventEmitter } from "../Main";
+import { GameFlowEvent } from "../core/Event";
 
 
 export let board:Board;
@@ -85,6 +87,7 @@ export class GameBoard extends Container{
                 if(selectCorrect){
                     this.clearIcon(this.select1);
                     this.clearIcon(this.select2);
+                    eventEmitter.emit(GameFlowEvent.LinkedLineSuccess);
                     SoundMgr.play('Sound_select_crrect');
                 }else{
                     SoundMgr.play('Sound_select_error');
