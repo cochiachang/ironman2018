@@ -6,6 +6,9 @@ import { LinkedLine } from "./LinkedLine";
 import { RevertBtn } from "./RevertBtn";
 import { TipBtn } from "./TipBtn";
 import { ReloadBtn } from "./ReloadBtn";
+import { FBBtn } from "./FBBtn";
+import { Stars } from "./Stars";
+import { Clock } from "./Clock";
 import { GameRoundEnd } from "./GameRoundEnd";
 import { Character } from "./Character";
 
@@ -22,6 +25,9 @@ export class GameScene {
         application.stage.addChild(new RevertBtn());
         application.stage.addChild(new TipBtn());
         application.stage.addChild(new ReloadBtn());
+        application.stage.addChild(new FBBtn());
+        application.stage.addChild(new Stars());
+        application.stage.addChild(new Clock());
 
         application.stage.addChild(new Character());
         application.stage.addChild(new GameRoundEnd());
