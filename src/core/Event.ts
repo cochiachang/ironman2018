@@ -3,6 +3,9 @@ export class CoreEvent{
 }
 
 export class GameFlowEvent{
+    public static GameEndWithTimeout: string = "GameEndWithTimeout";
+    public static GameEndWithNoPath: string = "GameEndWithNoPath";
+    public static GamePass: string = "GamePass";
     public static ReloadBoardRequest: string = "ReloadBoardRequest";
     public static RevertBackRequest: string = "RevertBackRequest";
     public static BoardNeedReload: string = "BoardNeedReload";

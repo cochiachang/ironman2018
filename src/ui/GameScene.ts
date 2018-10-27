@@ -6,6 +6,7 @@ import { LinkedLine } from "./LinkedLine";
 import { RevertBtn } from "./RevertBtn";
 import { TipBtn } from "./TipBtn";
 import { ReloadBtn } from "./ReloadBtn";
+import { GameRoundEnd } from "./GameRoundEnd";
 import { Character } from "./Character";
 
 export class GameScene {
@@ -23,5 +24,6 @@ export class GameScene {
         application.stage.addChild(new ReloadBtn());
 
         application.stage.addChild(new Character());
+        application.stage.addChild(new GameRoundEnd());
     }
 }

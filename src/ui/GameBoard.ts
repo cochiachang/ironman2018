@@ -11,6 +11,7 @@ import { GameFlowEvent } from "../core/Event";
 
 
 export let board:Board;
+export let reloadTimes:number = 3;
 
 export class GameBoard extends Container{
 
@@ -19,7 +20,6 @@ export class GameBoard extends Container{
     private selected = false;
     private pathHistory = [];
     private valueHistory = [];
-    private reloadTimes = 3;
     private selectedBorder:PIXI.Graphics;
     
     constructor() {
@@ -40,7 +40,7 @@ export class GameBoard extends Container{
         this.selected = false;
         this.pathHistory = [];
         this.valueHistory = [];
-        this.reloadTimes = 3;
+        reloadTimes = 3;
         board = new Board();
         this.drawBoardIcon();
         eventEmitter.emit(GameFlowEvent.GameRoundStart);
@@ -84,7 +84,7 @@ export class GameBoard extends Container{
     };
     
     reloadBoard = ()=>{
-        this.reloadTimes--;
+        reloadTimes--;
         do{
             board.rearrangeBoard();
         }while(board.getFirstExistPath() == null)
@@ -135,14 +135,13 @@ export class GameBoard extends Container{
                                 selectCorrect = true;
                                 //判斷還有沒有路走
                                 if(board.gameRoundEnd()){
-                                    alert("恭喜完成遊戲!");
-                                    this.createNewGame();
+                                    eventEmitter.emit(GameFlowEvent.GamePass);
                                 }else if(board.getFirstExistPath() == null){
-                                    if(this.reloadTimes > 0){
+                                    if(reloadTimes > 0){
                                         this.reloadBoard();
                                         eventEmitter.emit(GameFlowEvent.BoardNeedReload);
                                     }else{
-                                        alert("遊戲結束!");
+                                        eventEmitter.emit(GameFlowEvent.GameEndWithNoPath);
                                     }
                                 }
                             }
