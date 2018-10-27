@@ -19,7 +19,7 @@ export class Loader{
         });
         //可取得下載進度
         this.loader.onProgress.add((e) => {
-            jQuery("#loadingPage").html("Loading..." + Math.floor(e.progress) + "%");
+            jQuery("#loadingPercent").html("Loading..." + Math.floor(e.progress) + "%");
         });
         //載入檔案錯誤時
         this.loader.onError.add((t, e, r) => {
@@ -32,9 +32,11 @@ export class Loader{
         //全部下載完成後
         this.loader.onComplete.add(() => {
             if (this.failedFiles.length == 0){
+                //隱藏loading page
+                jQuery("#loadingPage").hide();
                 eventEmitter.emit(CoreEvent.AssetsLoadComplete);
             } else{
-                jQuery("#loadingPage").html("Loading...failed: could not load "+ this.failedFiles);
+                jQuery("#loadingPercent").html("Loading...failed: could not load "+ this.failedFiles);
             }
         });
     }

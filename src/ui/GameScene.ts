@@ -2,6 +2,7 @@ import {Loader} from "../core/Loader";
 import {application} from "../Main";
 import {SoundBtn} from "./SoundBtn";
 import {GameBoard} from "./GameBoard";
+import { LinkedLine } from "./LinkedLine";
 import { Character } from "./Character";
 export class GameScene {
     
@@ -12,6 +13,7 @@ export class GameScene {
         application.stage.addChild(new SoundBtn());
         //加入連連看牌面
         application.stage.addChild(new GameBoard());
+        application.stage.addChild(LinkedLine.instance);
         //角色動畫
         application.stage.addChild(new Character());
     }
