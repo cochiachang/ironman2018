@@ -5,4 +5,5 @@ export class CoreEvent{
 export class GameFlowEvent{
     public static TipsRequest: string = "TipsRequest";
     public static LinkedLineSuccess: string = "LinkedLineSuccess";
+    public static RevertBackRequest:string = "RevertBackRequest";
 }

@@ -17,7 +17,8 @@ export class GameBoard extends Container{
     private select1 = new Point(-1, -1);
     private select2 = new Point(-1, -1);
     private selected = false;
-    private msgArr = [];
+    private pathHistory = [];
+    private valueHistory = [];
     private reloadTimes = 3;
     private selectedBorder:PIXI.Graphics;
     
@@ -26,18 +27,32 @@ export class GameBoard extends Container{
         this.createNewGame();
         this.x = 175;
         this.y = 20;
+
+        eventEmitter.on(GameFlowEvent.RevertBackRequest,this.revertBoard.bind(this));
     }
     
     createNewGame = ()=>{
-        this.removeChildren();
         this.select1 = new Point(-1, -1);
         this.select2 = new Point(-1, -1);
         this.selected = false;
-        this.msgArr = [];
+        this.pathHistory = [];
+        this.valueHistory = [];
         this.reloadTimes = 3;
         board = new Board();
         this.drawBoardIcon();
     };
+
+    revertBoard = ()=>{
+        let value = this.valueHistory.pop();
+        let path = this.pathHistory.pop();
+        if(value != null && path != null){
+            board.board[path.point1.x][path.point1.y] = value;
+            board.board[path.point2.x][path.point2.y] = value;
+
+            this.drawBoardIcon();
+            SoundMgr.play('Back');
+        }
+    }
 
     drawBoardIcon = ()=>{
         this.removeChildren();
@@ -62,7 +77,7 @@ export class GameBoard extends Container{
         let icon = this.getChildByName('icon_'+point.x+"_"+point.y) as GameIcon;
         icon.unSelect();
     };
-
+    
     createIcon = (id, x, y)=>{
         let icon = new GameIcon(id,x,y);
         this.addChild(icon);
@@ -76,6 +91,8 @@ export class GameBoard extends Container{
                         if (! (this.select1.x == x && this.select1.y == y) ) {
                             let path = new Path(this.select1, this.select2, board);
                             if(path.canLinkInLine()){
+                                this.pathHistory.push(path);
+                                this.valueHistory.push(board.getValue(this.select1));
                                 LinkedLine.instance.drawPath(path);
                                 this.clearIcon(this.select1);
                                 this.clearIcon(this.select2);
@@ -85,7 +102,7 @@ export class GameBoard extends Container{
                                 if(board.gameRoundEnd()){
                                     alert("恭喜完成遊戲!");
                                     this.createNewGame();
-                                }else if(board.getFirstExistPath() == null){    
+                                }else if(board.getFirstExistPath() == null){
                                     this.reloadTimes--;
                                     board.rearrangeBoard();
                                 }
