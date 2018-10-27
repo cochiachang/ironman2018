@@ -10,11 +10,13 @@ export class SoundBtn extends ButtonBase {
         this.updateImage();
         
     }
+
     public trigger(){
         this.isMute = !this.isMute;
         SoundMgr.mute(this.isMute);
         this.updateImage();
     }
+    
     updateImage = ()=>{
         if (this.isMute){
             this.texture = this.texture = Loader.resources['Button'].textures['Sound_Off'];

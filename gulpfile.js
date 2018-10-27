@@ -26,7 +26,9 @@ gulp.task('libs', () => {
             'node_modules/systemjs/dist/system.js.map',
             'node_modules/pixi.js/dist/pixi.min.js',
             'node_modules/pixi.js/dist/pixi.min.js.map',
-            'node_modules/howler/dist/howler.core.min.js'
+            'node_modules/howler/dist/howler.core.min.js',
+            'node_modules/gsap/src/minified/TweenLite.min.js',
+            'node_modules/gsap/src/minified/TimelineMax.min.js '
         ])
         .pipe(gulp.dest("build/lib"));
 });
