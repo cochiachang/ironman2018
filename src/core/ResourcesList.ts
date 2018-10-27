@@ -23,6 +23,10 @@ export class ResourcesList{
         new Resources('Sound_select_1','assets/select_1.mp3'),
         new Resources('Sound_select_crrect','assets/select_crrect.mp3'),
         new Resources('Sound_select_error','assets/select_error.mp3'),
-        new Resources('Back','assets/back.mp3')
+        new Resources('ReloadBoard','assets/reloadBoard.mp3'),
+        new Resources('Tips','assets/tips.mp3'),
+        new Resources('Back','assets/back.mp3'),
+        new Resources('About','assets/about.mp3'),
+        
     ];
 }

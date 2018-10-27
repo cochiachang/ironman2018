@@ -28,7 +28,10 @@ export class GameBoard extends Container{
         this.x = 175;
         this.y = 20;
 
+        eventEmitter.on(GameFlowEvent.ReloadBoardRequest, this.reloadBoard.bind(this));
+        eventEmitter.on(GameFlowEvent.TipsRequest,this.showTips.bind(this));
         eventEmitter.on(GameFlowEvent.RevertBackRequest,this.revertBoard.bind(this));
+        eventEmitter.on(GameFlowEvent.CreateNewGameRequest, this.createNewGame.bind(this));
     }
     
     createNewGame = ()=>{
@@ -40,6 +43,8 @@ export class GameBoard extends Container{
         this.reloadTimes = 3;
         board = new Board();
         this.drawBoardIcon();
+        eventEmitter.emit(GameFlowEvent.GameRoundStart);
+        this.tipsPath = board.getFirstExistPath();
     };
 
     revertBoard = ()=>{
@@ -78,10 +83,40 @@ export class GameBoard extends Container{
         icon.unSelect();
     };
     
+    reloadBoard = ()=>{
+        this.reloadTimes--;
+        do{
+            board.rearrangeBoard();
+        }while(board.getFirstExistPath() == null)
+        this.drawBoardIcon();
+        SoundMgr.play('ReloadBoard');
+    }
+    private tipsPath:Path;
+    showTips = ()=>{
+        this.tipsPath = board.getFirstExistPath();
+        let icon1 = this.getChildByName('icon_'+this.tipsPath.point1.x+"_"+this.tipsPath.point1.y) as GameIcon;
+        icon1.select();
+        
+        let icon2 = this.getChildByName('icon_'+this.tipsPath.point2.x+"_"+this.tipsPath.point2.y) as GameIcon;
+        icon2.select();
+        SoundMgr.play('Tips');
+    }
+    cancelTips=()=>{
+        if(this.tipsPath == null){
+            return;
+        }
+        let icon1 = this.getChildByName('icon_'+this.tipsPath.point1.x+"_"+this.tipsPath.point1.y) as GameIcon;
+        if(icon1) icon1.unSelect();
+        
+        let icon2 = this.getChildByName('icon_'+this.tipsPath.point2.x+"_"+this.tipsPath.point2.y) as GameIcon;
+        if(icon2) icon2.unSelect();
+    }
+
     createIcon = (id, x, y)=>{
         let icon = new GameIcon(id,x,y);
         this.addChild(icon);
         let iconClickHandler = ()=>{
+            this.cancelTips();
             if (this.selected) {
                 let selectCorrect = false;
                 this.select2 = new Point(x, y);
@@ -103,8 +138,12 @@ export class GameBoard extends Container{
                                     alert("恭喜完成遊戲!");
                                     this.createNewGame();
                                 }else if(board.getFirstExistPath() == null){
-                                    this.reloadTimes--;
-                                    board.rearrangeBoard();
+                                    if(this.reloadTimes > 0){
+                                        this.reloadBoard();
+                                        eventEmitter.emit(GameFlowEvent.BoardNeedReload);
+                                    }else{
+                                        alert("遊戲結束!");
+                                    }
                                 }
                             }
                         }
