@@ -1,6 +1,7 @@
 import {Loader} from "../core/Loader";
 import {application} from "../Main";
 import {SoundBtn} from "./SoundBtn";
+import {GameBoard} from "./GameBoard";
 
 export class GameScene {
     
@@ -9,5 +10,7 @@ export class GameScene {
         application.stage.addChild(PIXI.Sprite.from(Loader.resources["background"].texture));
         //加入按鈕
         application.stage.addChild(new SoundBtn());
+        //加入連連看牌面
+        application.stage.addChild(new GameBoard());
     }
 }
